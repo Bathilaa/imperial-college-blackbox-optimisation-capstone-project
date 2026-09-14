@@ -9,3 +9,6 @@ env/
 .DS_Store
 .vscode/
 .idea/
+
+# stray test files that could not be deleted
+.__*

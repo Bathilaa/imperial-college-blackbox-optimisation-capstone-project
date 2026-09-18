@@ -1,15 +1,9 @@
 """
-Module 18 / Round 7 query generation.
+Round 7 queries. Stepped 0.12 sideways on Function 1 expecting a flat ridge.
 
-Round 6 probed 0.03 perpendicular to the Function 1 line and lost only 0.026
-decades, against 2.5 decades for 0.054 along it. That reads as a ridge running
-perpendicular to the direction walked for four rounds, so this round steps
-0.12 along it.
-
-NOTE, WRITTEN AFTER THE RESULT: this was wrong. The 0.03 probe was taken on one
-side of the peak and the 0.12 step was taken on the other. The surface is not
-symmetric; the far side falls off a cliff and this query returned 2.2e-13,
-about thirteen decades below the best. See round8_module19.py.
+This was wrong. The 0.03 probe was one side of the peak and the 0.12 step was
+the other, and the surface is not symmetric. It came back at 2.2e-13, about
+thirteen decades down. See round8_module19.py.
 """
 import numpy as np
 from scipy.stats import norm

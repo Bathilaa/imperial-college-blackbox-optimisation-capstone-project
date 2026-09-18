@@ -1,10 +1,6 @@
 """
-Module 16 / Round 5 query generation.
-
-Function 1 changes direction this round. The point it had been stepping toward
-turned out to be 151 times weaker than the new reading, so the old line is
-downhill. Two candidates are worked out and compared.
-Functions 2 to 8 use the GP plus leave-one-out trust check as before.
+Round 5 queries. Three readings now bracket Function 1's peak, so a curve
+through them replaces stepping and hoping.
 """
 import numpy as np
 from scipy.stats import norm

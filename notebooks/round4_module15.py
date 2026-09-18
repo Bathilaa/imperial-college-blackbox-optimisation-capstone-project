@@ -1,8 +1,5 @@
 """
-Module 15 / Round 4 query generation.
-
-Function 1 is handled separately again; two candidates are compared and the
-reasoning printed. Functions 2 to 8 use the GP plus leave-one-out trust check.
+Round 4 queries. Function 1 has little upside left on its line, so the step shrinks.
 """
 import numpy as np
 from scipy.stats import norm

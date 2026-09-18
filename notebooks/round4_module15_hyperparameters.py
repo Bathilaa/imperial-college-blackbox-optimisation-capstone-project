@@ -1,9 +1,5 @@
 """
-Hyperparameter sweep for the Module 15.2 reflection.
-
-Uses Function 8, which has the most data (43 points, 8 inputs), framed as the
-same high/low classification. Each setting is run over five seeds so that
-stability can be separated from average performance.
+Hyperparameter sweep on Function 8, for the Module 15.2 write-up.
 """
 import warnings, numpy as np
 warnings.filterwarnings("ignore")

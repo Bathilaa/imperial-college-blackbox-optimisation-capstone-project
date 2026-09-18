@@ -1,12 +1,5 @@
 """
-Module 17 / Round 6 query generation.
-
-Function 1's line is finished: a parabola through the four bracketing readings
-now fits to within 0.01 and puts its peak exactly where Round 5 already queried.
-Every reading on this function sits within 0.02 of that one line, so nothing is
-known about the perpendicular direction. This round probes sideways.
-
-Functions 2 to 8 use the GP plus leave-one-out trust check as before.
+Round 6 queries. Function 1's line is done, so this probes sideways.
 """
 import numpy as np
 from scipy.stats import norm

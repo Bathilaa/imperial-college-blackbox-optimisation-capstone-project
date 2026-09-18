@@ -1,6 +1,5 @@
 """
-Minimal linear / logistic regression check, for the Module 13 reflection only.
-Purpose is to see which regression assumptions the eight data sets break.
+Linear regression on each function, for the Module 13 write-up.
 """
 import numpy as np
 from sklearn.linear_model import LogisticRegression

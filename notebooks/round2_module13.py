@@ -1,18 +1,7 @@
 """
-Module 13 / Round 2 query generation for the black-box optimisation challenge.
-
-Changes from Round 1:
-  1. Function 1 no longer uses a Gaussian process. Its magnitudes span 1e-124 to
-     1e-3 with alternating signs, which is a decaying envelope times an
-     oscillation. A quadratic is fitted to log10|y| by least squares and the
-     peak of that quadratic is queried directly.
-  2. Every other function gets a leave-one-out trust check. If the GP cannot
-     beat a mean predictor out of sample, its posterior peaks are not
-     trustworthy, so that function switches from Expected Improvement to
-     Upper Confidence Bound.
-  3. Fitted ARD length scales are printed so inactive inputs can be spotted.
-  4. A hindsight check refits on the pre-Round-1 data and compares the model's
-     prediction at the Round 1 query with the value that actually came back.
+Round 2 queries. Added a leave-one-out check so a model has to beat
+predicting the average before it gets to exploit. Function 1 drops the GP
+for a curve fitted to the size of its readings.
 """
 import numpy as np
 from scipy.stats import norm

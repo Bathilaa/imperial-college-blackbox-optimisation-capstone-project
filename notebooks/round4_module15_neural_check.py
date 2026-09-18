@@ -1,10 +1,6 @@
 """
-Neural network check for the Module 15 reflection.
-
-Frames each function as a classification problem (output above or below its
-median), then compares a small neural network against logistic regression and an
-RBF SVM. Also reports which observed points sit on the decision boundary, and
-which inputs the network is most sensitive to.
+Neural net vs logistic vs SVM on a high/low split, plus input gradients.
+For the Module 15 write-up.
 """
 import numpy as np
 from sklearn.neural_network import MLPClassifier

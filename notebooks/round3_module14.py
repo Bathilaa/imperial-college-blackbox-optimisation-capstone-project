@@ -1,9 +1,5 @@
 """
-Module 14 / Round 3 query generation.
-
-Function 1 is handled separately again. Two candidates are worked out and
-compared, and the reasoning for the choice is printed.
-Functions 2 to 8 use the same GP plus leave-one-out trust check as Round 2.
+Round 3 queries. Two options worked out for Function 1 and the better one taken.
 """
 import numpy as np
 from scipy.stats import norm

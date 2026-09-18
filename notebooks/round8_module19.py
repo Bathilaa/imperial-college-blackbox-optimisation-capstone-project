@@ -1,11 +1,6 @@
 """
-Module 19 / Round 8 query generation.
-
-Round 7 improved nothing on any function. Function 1 was the worst of it: a
-0.12 step along what was thought to be a flat ridge fell 12.7 decades. The flat
-direction runs one way only; the other drops off a cliff. Three readings now
-bracket that axis, so this round interpolates between them instead of
-extrapolating past anything.
+Round 8 queries. Three readings bracket Function 1's sideways axis now, so
+this interpolates between them instead of stepping past them.
 """
 import numpy as np
 from scipy.stats import norm

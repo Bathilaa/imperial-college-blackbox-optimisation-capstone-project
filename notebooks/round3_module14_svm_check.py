@@ -1,8 +1,5 @@
 """
-SVM check for the Module 14 reflection only.
-Splits each function's outputs into high and low at the median, then compares a
-soft-margin linear SVM against an RBF kernel SVM, plus logistic regression as
-last week's baseline. Small data, so cross validated accuracy on the whole set.
+Linear vs RBF SVM on a high/low split, for the Module 14 write-up.
 """
 import numpy as np
 from sklearn.svm import SVC

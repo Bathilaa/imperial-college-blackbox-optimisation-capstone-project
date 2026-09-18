@@ -90,3 +90,24 @@ checked out and that round's script rerun against it.
 pip install -r requirements.txt
 python notebooks/round8_module19.py
 ```
+
+## References
+
+The choices above are not defaults. Each rests on something:
+
+- **Expected Improvement** — Jones, Schonlau & Welch (1998), *Efficient Global
+  Optimization of Expensive Black-Box Functions*. The original EGO paper.
+- **Matern kernel with a length scale per input** — Snoek, Larochelle & Adams (2012),
+  *Practical Bayesian Optimization of Machine Learning Algorithms*. They argue the
+  squared exponential assumes unrealistic smoothness and recommend Matern 5/2 with ARD.
+- **Gaussian processes generally** — Rasmussen & Williams (2006), *Gaussian Processes
+  for Machine Learning*.
+
+Not used yet, but relevant:
+
+- Eriksson et al. (2019), *TuRBO*. Trust regions that shrink after failures. Function 4
+  keeps swinging wildly because the global model proposes far-off points; this is the
+  fix.
+- Snoek et al. (2014), *Input Warping for Bayesian Optimization of Non-Stationary
+  Functions*. Likely relevant to Function 3, which has not improved in 18 rounds.
+- Shahriari et al. (2016), *Taking the Human Out of the Loop*. Survey of the field.

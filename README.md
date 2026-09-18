@@ -96,7 +96,7 @@ and the surface is not symmetric.
 
 ```
 data/function_1..8/   inputs.npy, outputs.npy
-notebooks/            one script per round, plus side checks
+notebooks/            capstone_walkthrough.ipynb, plus one script per round
 reflections/          the write-up for each module
 submissions/          the query strings sent to the portal
 results/              figures
@@ -110,6 +110,18 @@ out and that round's script rerun against it.
 
 ```
 pip install -r requirements.txt
+jupyter notebook notebooks/capstone_walkthrough.ipynb
+```
+
+`capstone_walkthrough.ipynb` runs the whole thing end to end: it loads the data, rebuilds
+every model, runs the leave-one-out check, redraws the figures and regenerates my last set
+of queries. Its final cell compares them against the file I actually submitted. It takes
+about a minute and a half and the outputs are saved in the file, so you can read it
+without running it.
+
+The per-round scripts regenerate one week each, for example:
+
+```
 python notebooks/round8_module19.py
 ```
 

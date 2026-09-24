@@ -22,14 +22,14 @@ function. The output is a single number, and the scales vary enormously.
 
 | Function | Inputs | Readings | Best so far |
 |---|---|---|---|
-| 1 | 2 | 18 | 1.98469 |
-| 2 | 2 | 18 | 0.767861 |
-| 3 | 3 | 23 | -0.0348353 |
-| 4 | 4 | 38 | 0.631155 |
-| 5 | 4 | 28 | 7215.67 |
-| 6 | 5 | 28 | -0.241097 |
-| 7 | 6 | 38 | 2.19128 |
-| 8 | 8 | 48 | 9.94968 |
+| 1 | 2 | 19 | 1.98469 |
+| 2 | 2 | 19 | 0.767861 |
+| 3 | 3 | 24 | -0.0348353 |
+| 4 | 4 | 39 | 0.631155 |
+| 5 | 4 | 29 | 7215.67 |
+| 6 | 5 | 29 | -0.241097 |
+| 7 | 6 | 39 | 2.19128 |
+| 8 | 8 | 49 | 9.95156 |
 
 Queries go to the portal hyphen separated, six decimal places:
 
@@ -80,7 +80,7 @@ per function per week is the entire supply.
 
 ![Best value found so far, by round](results/progress.png)
 
-Eight rounds in, six of the eight have improved on their starting best.
+Nine rounds in, six of the eight have improved on their starting best.
 
 Function 1 moved furthest, about fifteen orders of magnitude, and every step came from
 changing the model rather than collecting more data. Function 3 is the opposite: its

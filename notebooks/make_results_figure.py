@@ -12,10 +12,13 @@ import matplotlib.pyplot as plt
 
 INK, MUTED, LINE = "#1a1a1a", "#6b6b6b", "#2b5c8a"
 
+# How many readings each function came with before I submitted anything.
+INITIAL = {1: 10, 2: 10, 3: 15, 4: 30, 5: 20, 6: 20, 7: 30, 8: 40}
+
 fig, axes = plt.subplots(2, 4, figsize=(13, 6))
 for i, ax in enumerate(axes.flat, start=1):
     y = np.ravel(np.load(f"data/function_{i}/outputs.npy"))
-    start = len(y) - 7                      # 7 rounds submitted so far
+    start = INITIAL[i]                      # first reading I added myself
     running = np.maximum.accumulate(y)      # best found up to each reading
     rounds = np.arange(0, len(y) - start + 1)
     series = np.concatenate([[running[start - 1]], running[start:]])

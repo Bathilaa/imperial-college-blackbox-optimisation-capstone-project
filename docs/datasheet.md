@@ -23,7 +23,8 @@ number the function returned there.
 - Every input is a real number between 0 and 1.
 - 175 readings were supplied at the start, from 10 for Function 1 up to 40 for
   Function 8.
-- 231 readings after seven rounds. Every round adds exactly eight, one per function.
+- 247 readings after nine rounds. Every round adds exactly eight, one per function,
+  so the count is 175 plus 8 times the number of rounds.
 
 There is no missing data. Every query submitted has returned a value.
 
@@ -40,7 +41,9 @@ This is not a sample of anything larger. The points are chosen, not drawn, and t
 chosen deliberately: mostly by fitting a Gaussian process to what I already have and
 picking the point that maximises Expected Improvement.
 
-Collected from late August 2026 onward, one round per week.
+Collected from late August 2026 to late September 2026, one round per week, nine rounds
+in total. Turnaround from submitting a query to receiving its value ran between one and
+three days.
 
 ## Preprocessing, cleaning and labelling
 
@@ -84,4 +87,6 @@ functions.
 ## Maintenance
 
 Me, for the duration of the capstone. Each round's results are committed separately, so
-the dataset as it stood at any past round can be recovered from the history.
+the dataset as it stood at any past round can be recovered from the history. That is not
+just bookkeeping: `notebooks/capstone_walkthrough.ipynb` uses it to roll the data back one
+reading and check that the recorded strategy really does reproduce the queries I sent.

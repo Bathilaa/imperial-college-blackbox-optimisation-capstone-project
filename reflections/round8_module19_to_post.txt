@@ -1,67 +1,71 @@
-Week 8 results: Function 1 up to 1.98 from 1.18, Function 6 and Function 7 also improved.
-Function 4 returned -8.85, its worst reading yet.
+Week 8: Function 1 up to 1.98 from 1.18, Functions 6 and 7 also improved. Function 4
+returned -8.85, its worst yet.
 
 How I prompted
 
-Structured, not zero-shot. Each week I paste in a state summary: the current readings for
-each function, what the leave-one-out check said last round, and what I tried last time.
-Then I ask for the reasoning before any code. Early on I used short open questions like
-"what should I query next" and got answers that were fluent, confident and impossible to
-check. Giving it the numbers and asking it to argue for a choice produced answers I could
-test against the data. I also ask for the plan in plain language first. If it cannot
-explain the idea simply, I usually do not understand it well enough to defend it here.
+No model has chosen one of my query points. Every coordinate comes out of a script that
+fits a Gaussian process to my saved readings, scores 50,000 candidates and takes the best,
+from a fixed seed. Function 1 comes out of a curve fitted to readings I already hold. What
+I use the models for is working out what that script should do next, the harder question.
+
+My prompts are about strategy, not coordinates. I stopped asking open questions early on,
+because "what should I query next" gave me answers that were fluent, confident and
+impossible to check. Now I write a state summary myself each week: current readings per
+function, what my leave-one-out check returned, what I tried and what it cost. I put a
+proposed change against it, make it argue the case, and test the argument on my own data
+before changing any code. I also make it explain the idea in plain English, because if I
+cannot follow it I cannot defend the decision here.
 
 Decoding settings
 
 I worked in chat interfaces, so temperature, top-p and top-k were not exposed and I did
-not set them. Driving this through an API I would keep temperature low for anything that
-produces a number I am about to submit, because I want the same answer twice from the same
-data. I would raise it only when asking for alternative strategies, where I want a spread
-of ideas rather than the single likeliest one. That is the same trade-off as my
-acquisition function. Expected Improvement is the low temperature choice and Upper
-Confidence Bound is the high one, and this week six functions sat on EI and one on UCB.
+not set them. They would not have touched a coordinate in any case, since those come out
+of code. What they would change is the strategy conversation: low when checking a claim
+against my numbers, higher when asking what else I could try.
+
+That is the same trade-off I already manage in the optimisation. Expected Improvement is
+the low temperature setting and Upper Confidence Bound is the high one. This week I put
+six functions on EI and one on UCB, and that split came from my check, not from a model.
 
 Token limits
 
-I have not hit truncation. I checked by asking for the same round of queries twice in
-separate conversations and comparing the numbers, and by keeping the readings in .npy
-files rather than in the prompt. With eighteen readings on the smallest
-function and forty-eight on the largest, the summary is still short. Run to thirteen rounds
-it would be close to 300 readings, which is the point where I would pass file paths instead
-of pasting data.
+The risk here is precision, not length. The portal takes each coordinate at exactly six
+decimal places and rejects anything else, so one dropped digit costs a week. My scripts
+format the numbers and write the submission file, and my readings live in .npy files
+rather than in prompts, so nothing I submit has passed through a tokeniser.
+
+No truncation so far, checked by putting the same reasoning to two conversations and
+comparing. At thirteen rounds my summary would near 300 readings, the point where I would
+pass file paths instead.
 
 What went wrong
 
-Round 7. I had a good point on Function 1, probed 0.03 to one side, found it cost almost
-nothing, and accepted the reasoning that the ridge was therefore symmetric so I could step
-0.12 the other way. Nothing in my data said it was symmetric. The value fell from 1.18 to
-2.2e-13. The limitation was not an invented fact, it was a plausible assumption I never
-made it check against an actual reading. Round 8 only queried between points I already
-held and returned 1.98, the best of the run.
+Round 7 was my mistake. I had a good point on Function 1, probed 0.03 to one side, saw it
+cost almost nothing, and concluded the ridge was symmetric. Nothing in my data said that.
+I stepped 0.12 the other way and the value fell from 1.18 to 2.2e-13. The failure was not
+an invented fact from a model but an assumption I made and never tested. I changed my rule
+afterwards: Function 1 is now queried only between points I already hold. Round 8 returned
+1.98, the best of the run.
 
 Stopping it making things up
 
-Three things, in order of how much they helped. I made everything a script that reruns
-from the saved data, so a claim has to survive being executed. The notebook in my repo
-regenerates my round 8 queries and compares them against the file I actually submitted,
-and prints whether they match. I put the same state summary to two different models and
-look at where they disagree, which is where I go and check. And I stopped one of them when
-it referred to a function's true optimum, which is not something either of us can know
-from eighteen readings. That was the most useful catch of the run and it came from me
-reading carefully, not from any setting.
+Three things, in order of how much they helped. First, my rule that nothing counts until a
+script reproduces it from saved data. The notebook in my repo rolls my data back a
+reading, regenerates the round 8 queries and checks them against the file I submitted.
+Second, I put the same summary to Claude and ChatGPT and check wherever they disagree.
+Third, I read the output properly. I caught one referring to a function's true optimum,
+which is not knowable from eighteen readings.
 
 Scaling this up
 
-The prompt is the part that would break first. More functions or more readings and I would
-stop pasting numbers entirely, pass file paths, and move the repeated weekly reasoning
-into code so the model only handles the part that actually changes each round. I would
-also want the checks automated rather than me noticing things, because I will not catch
-the true optimum claim every time.
+My summary breaks first. With more functions or readings I would pass file paths instead
+of numbers, and move more of the weekly reasoning into code so less depends on a
+conversation. I would automate my checks too, because reading carefully does not scale.
 
 Working without knowing the answer
 
-Every one of these choices is the same problem as the capstone itself. One query per
-function per week is the entire budget, so a wrong step costs a week. Low temperature and
-tight grounding are the exploitation setting, loose prompting is exploration, and Round 7
-is what exploration costs when nothing constrains it. The useful habit was not trusting
-less, it was making every suggestion cheap to check.
+This is the capstone problem again. One query per function per week is my whole budget, so
+a wrong step costs a week. Grounding every question in my own numbers is exploitation,
+asking openly is exploration, and Round 7 is what exploration costs unconstrained. What
+helped was not trusting the models less. It was keeping the decisions in code I can rerun,
+so trust stopped mattering.

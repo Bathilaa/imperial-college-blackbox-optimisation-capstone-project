@@ -125,6 +125,42 @@ The per-round scripts regenerate one week each, for example:
 python notebooks/round8_module19.py
 ```
 
+## Declaration of AI use
+
+This project is my own work. I designed the optimisation strategy, made every decision about
+what to query, and submitted every point myself. All material that is not my own work is
+acknowledged below.
+
+I used ChatGPT and Claude for the following:
+
+- Explaining concepts I had not met before, in simplified terms, so that I could decide
+  whether they applied here. Trust regions and the TuRBO paper are the clearest example.
+- Finding and checking references. The papers in `docs/literature-notes.md` were located this
+  way and I read them before citing them.
+- Brainstorming and structuring. I described what I wanted a round or a document to do and
+  worked through the options before committing to one.
+- Writing and debugging the Python for each round.
+- Turning my decisions and results into written documentation. I set what each write-up had
+  to cover, and edited what came back.
+- Improving the clarity of my writing by showing me what a clearer version looked like.
+
+I set what each round needed to do, reviewed everything that came back, and rewrote what did
+not fit. All code and outputs have been reviewed and edited to reflect my own work and
+understanding.
+
+The decisions are mine throughout. This includes which functions to trust each round, when to
+move a function from Expected Improvement to Upper Confidence Bound, the rule that Function 1
+is queried only between readings I already hold, the trust region I applied to Function 4,
+and every point submitted to the portal. Where the models were wrong I caught it, including
+once when one referred to a function's true optimum, which is not knowable from the readings
+I hold.
+
+I verified rather than accepted. I keep the readings in .npy files that the scripts read
+directly, so no coordinate I submit passes through a model. The notebook in this repository
+rolls the data back by one reading and confirms that my recorded strategy reproduces the
+queries I actually submitted. I put the same weekly summary to both models and checked
+wherever they disagreed.
+
 ## References
 
 The choices above are not defaults. Each rests on something:

@@ -140,6 +140,13 @@ above was made because a recorded prediction missed a recorded result. Without t
 round 7's failure would have been a bad week rather than a reason to stop extrapolating,
 and Function 4's rising error would have been invisible.
 
+The strategy was developed with help from Claude and ChatGPT, which is part of what a
+reader needs to know to judge it. They were used to think through each round, write the
+Python and draft the write-ups. The decisions about what to query were mine, and the
+rollback check above exists precisely because a model's suggestion is not evidence. Twice a
+model proposed something confident and wrong, and both times it was the recorded prediction
+against the recorded result that caught it, not my judgement in the moment.
+
 What a reader would still need in order to fully reproduce this: the eight functions
 themselves, which the course does not disclose. Everything on my side is here.
 

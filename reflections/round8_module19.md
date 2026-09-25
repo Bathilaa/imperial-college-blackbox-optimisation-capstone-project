@@ -13,8 +13,8 @@ because "what should I query next" gave me answers that were fluent, confident a
 impossible to check. Now I write a state summary myself each week: current readings per
 function, what my leave-one-out check returned, what I tried and what it cost. I put a
 proposed change against it, make it argue the case, and test the argument on my own data
-before changing any code. I also make it explain the idea in plain English, because if I
-cannot follow it I cannot defend the decision here.
+before changing any code. I also ask for the plain English version, because a claim I can
+restate simply is one I can check, and one that resists it is hiding an assumption.
 
 Decoding settings
 
@@ -35,17 +35,16 @@ format the numbers and write the submission file, and my readings live in .npy f
 rather than in prompts, so nothing I submit has passed through a tokeniser.
 
 No truncation so far, checked by putting the same reasoning to two conversations and
-comparing. At thirteen rounds my summary would near 300 readings, the point where I would
-pass file paths instead.
+comparing. At thirteen rounds my summary would near 300 readings, where I would pass file
+paths instead.
 
 What went wrong
 
 Round 7 was my mistake. I had a good point on Function 1, probed 0.03 to one side, saw it
 cost almost nothing, and concluded the ridge was symmetric. Nothing in my data said that.
-I stepped 0.12 the other way and the value fell from 1.18 to 2.2e-13. The failure was not
-an invented fact from a model but an assumption I made and never tested. I changed my rule
-afterwards: Function 1 is now queried only between points I already hold. Round 8 returned
-1.98, the best of the run.
+I stepped 0.12 the other way and the value fell from 1.18 to 2.2e-13. The failure was an
+assumption I made and never tested. I changed my rule afterwards: Function 1 is now
+queried only between points I already hold. Round 8 returned 1.98, the best of the run.
 
 Stopping it making things up
 
@@ -59,8 +58,8 @@ which is not knowable from eighteen readings.
 Scaling this up
 
 My summary breaks first. With more functions or readings I would pass file paths instead
-of numbers, and move more of the weekly reasoning into code so less depends on a
-conversation. I would automate my checks too, because reading carefully does not scale.
+of numbers and move more of the weekly reasoning into code, so less depends on a
+conversation at all. I would automate the checks too.
 
 Working without knowing the answer
 

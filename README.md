@@ -131,7 +131,8 @@ This project is my own work. I designed the optimisation strategy, made every de
 what to query, and submitted every point myself. All material that is not my own work is
 acknowledged below.
 
-I used ChatGPT and Claude for the following:
+I used ChatGPT 5.5, ChatGPT 5.6 Sol, ChatGPT 6 Sol, ChatGPT 6 Astra, Claude Opus 5 and
+Claude Opus 5.5 over the course of the project, for the following:
 
 - Explaining concepts I had not met before, in simplified terms, so that I could decide
   whether they applied here. Trust regions and the TuRBO paper are the clearest example.

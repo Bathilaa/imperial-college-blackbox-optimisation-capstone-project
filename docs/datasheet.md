@@ -4,89 +4,64 @@ For the data behind the black-box optimisation capstone.
 
 ## Motivation
 
-The dataset exists to run a structured optimisation challenge. Eight functions are
-hidden from the participant, who submits one input per function per week and receives
-one number back. The point is to practise optimising something you cannot see inside,
-which is the situation in hyperparameter tuning, physical experiments and any setting
-where each trial is expensive.
-
-It was created by Imperial College Executive Education for the Professional Certificate
-in Machine Learning and Artificial Intelligence. The functions themselves, their forms
-and their true optima, are not disclosed to participants.
+- The capstone has eight hidden functions.
+- Each week I submit one query for each function and receive one result.
+- The functions were created by Imperial College Executive Education for this course.
+- The aim is to find the highest value for each function using a limited number of queries.
 
 ## Composition
 
-Each instance is one query and its result: a point in the input space, and the single
-number the function returned there.
+- Each row contains one query and the result it returned.
+- The course provided 175 readings at the start.
+- After ten rounds I now have 255 readings.
+- Each round adds eight readings, one for each function.
+- The functions have between 2 and 8 inputs.
+- Every input must be between 0 and 1.
+- The data is stored in .npy files, one inputs file and one outputs file per function, under `data/function_1` to `data/function_8`.
+- There are no missing results.
 
-- Eight functions, with 2, 2, 3, 4, 4, 5, 6 and 8 inputs respectively.
-- Every input is a real number between 0 and 1.
-- 175 readings were supplied at the start, from 10 for Function 1 up to 40 for
-  Function 8.
-- 247 readings after nine rounds. Every round adds exactly eight, one per function,
-  so the count is 175 plus 8 times the number of rounds.
+### Data coverage
 
-There is no missing data. Every query submitted has returned a value.
-
-Nothing here is confidential or personal. The inputs are coordinates and the outputs
-are numbers from a synthetic function. No individual is represented.
+- The search space is not evenly covered.
+- For Function 1, which has two inputs, 34.5% of the space is within 0.1 of an existing reading.
+- For Function 8, which has eight inputs, none of the tested space is within 0.1 of an existing reading, even with 49 readings.
+- This shows how quickly coverage becomes difficult as the number of inputs increases.
 
 ## Collection process
 
-The starting readings were provided by the course. Everything since has been generated
-by me, one round per week, by choosing a point and submitting it through the capstone
-portal. Results arrive by email one to three days later.
+- The course supplied the starting readings.
+- I collected the rest through weekly submissions from August to September 2026.
+- I submitted the queries through the course portal.
+- Results arrived by email 1 to 3 days later.
+- The queries were not selected randomly.
+- Most were chosen because my Gaussian Process gave them the highest Expected Improvement.
 
-This is not a sample of anything larger. The points are chosen, not drawn, and they are
-chosen deliberately: mostly by fitting a Gaussian process to what I already have and
-picking the point that maximises Expected Improvement.
+## Preprocessing and uses
 
-Collected from late August 2026 to late September 2026, one round per week, nine rounds
-in total. Turnaround from submitting a query to receiving its value ran between one and
-three days.
+Changes made before modelling:
 
-## Preprocessing, cleaning and labelling
+- Function 1: I model the size of each result rather than its signed value.
+- Function 5: its results range from about 0.1 to more than 7,000, so I apply a log transformation when fitting the model.
+- These changes are made only when fitting the models.
+- The original results are kept unchanged in the dataset.
 
-Very little, and all of it reversible.
+### How the data can be used
 
-- Function 5's outputs are log transformed before modelling, because they span from
-  about 0.1 to over 7000. The stored data is raw.
-- Function 1 is modelled on the magnitude of its readings rather than the signed value,
-  because it takes both signs and spans about 120 orders of magnitude. Again, the
-  stored data is raw.
-- Nothing is discretised, bucketed or removed.
+- It can be used to test different acquisition functions.
+- It can be used to compare different modelling methods.
+- It allows earlier rounds to be tested again without using new queries.
 
-The raw values are what sit in the repository. Every transform happens at model time
-inside the round scripts, so the stored data never loses information.
+### How the data should not be used
 
-## Uses
+- It should not be used to describe the full shape of the hidden functions.
+- The data is concentrated around areas that my earlier models considered promising.
+- Large parts of the search space have never been tested.
 
-The obvious other use is as a benchmark. Because the functions are fixed and the
-readings are honest, the same data can test a different acquisition function or
-surrogate model offline, without spending real queries.
+## Distribution and maintenance
 
-One thing a consumer needs to know: **this data is not a random sample of the input
-space, and it is heavily biased towards regions that looked promising.** Fitting a
-global model to it and claiming it describes the whole function would be wrong. Large
-areas have never been visited, and the places that have been sampled most densely are
-precisely the places my search already believed were good.
-
-It should not be used to estimate how these functions behave on average, or to claim
-anything about their global structure.
-
-## Distribution
-
-The starting data was distributed by the course to enrolled participants. My readings
-are in this public GitHub repository.
-
-I do not know the licence terms for the underlying functions. The course materials do
-not state them, so I have published only the query and response values, which are my
-own submissions and their results, and not any course material describing the
-functions.
-
-## Maintenance
-
-Me, for the duration of the capstone. Each round's results are committed separately, so
-the dataset as it stood at any past round can be recovered from the history. That is not
-just bookkeeping: `notebooks/capstone_walkthrough.ipynb` uses it to roll the data back one
-reading and check that the recorded strategy really does reproduce the queries I sent.
+- The data is available in my public GitHub repository.
+- The course does not provide a licence for the hidden functions.
+- I have therefore published only my own queries and the results I received.
+- I have not published course material describing the functions.
+- I will maintain the dataset for the length of the capstone.
+- Each round is saved separately, so earlier versions can be recovered.

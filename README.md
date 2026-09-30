@@ -8,8 +8,7 @@ There are eight hidden machines. Each one takes a few numbers between 0 and 1 an
 back a single score, and nobody tells you what is inside. My job is to find the settings
 that make each score as high as possible.
 
-I get one attempt per machine per week, thirteen in total, so guessing is expensive. So
-I build a statistical model of what each machine probably does, use it to pick the
+I get one attempt per machine per week, so guessing is expensive. I build a statistical model of what each machine probably does, use it to pick the
 attempt most likely to either score well or teach me something, and update it when the
 result comes back a few days later.
 
@@ -22,14 +21,14 @@ function. The output is a single number, and the scales vary enormously.
 
 | Function | Inputs | Readings | Best so far |
 |---|---|---|---|
-| 1 | 2 | 19 | 1.98469 |
-| 2 | 2 | 19 | 0.767861 |
-| 3 | 3 | 24 | -0.0348353 |
-| 4 | 4 | 39 | 0.631155 |
-| 5 | 4 | 29 | 7215.67 |
-| 6 | 5 | 29 | -0.241097 |
-| 7 | 6 | 39 | 2.19128 |
-| 8 | 8 | 49 | 9.95156 |
+| 1 | 2 | 20 | 1.98469 |
+| 2 | 2 | 20 | 0.767861 |
+| 3 | 3 | 25 | -0.0348353 |
+| 4 | 4 | 40 | 0.631155 |
+| 5 | 4 | 30 | 7215.67 |
+| 6 | 5 | 30 | -0.241097 |
+| 7 | 6 | 40 | 2.19128 |
+| 8 | 8 | 50 | 9.95156 |
 
 Queries go to the portal hyphen separated, six decimal places:
 
@@ -66,7 +65,7 @@ maximising marginal likelihood with ten restarts: the length scales, the signal
 variance, and on Function 2 the noise level.
 
 The per-input length scales earn their cost. They are the only thing that says which
-inputs do nothing, and three inputs across three functions now sit pinned at their
+inputs do nothing, and four inputs across three functions now sit pinned at their
 ceiling.
 
 Set by hand: the Matern kernel over the squared exponential, the exploration weight on
@@ -80,7 +79,8 @@ per function per week is the entire supply.
 
 ![Best value found so far, by round](results/progress.png)
 
-Nine rounds in, six of the eight have improved on their starting best.
+Ten rounds in, six of the eight have improved on their starting best. Round 10 improved
+nothing, the second blank round in four, so the easy gains are gone.
 
 Function 1 moved furthest, about fifteen orders of magnitude, and every step came from
 changing the model rather than collecting more data. Function 3 is the opposite: its
@@ -90,15 +90,17 @@ test every single week.
 Two rounds went badly and both are written up rather than hidden. Round 7 stepped
 0.12 sideways on Function 1 expecting a flat ridge and fell thirteen orders of
 magnitude, because the probe that suggested the ridge was on the other side of the peak
-and the surface is not symmetric.
+and the surface is not symmetric. Round 8 on Function 4 passed the leave-one-out check
+and still returned -8.85, which is why it has had a trust region since round 9.
 
 ## Layout
 
 ```
 data/function_1..8/   inputs.npy, outputs.npy
 notebooks/            capstone_walkthrough.ipynb, plus one script per round
-reflections/          the write-up for each module
+reflections/          write-ups for modules 12 to 19, later ones are on the course forum
 submissions/          the query strings sent to the portal
+planned/              rounds 11 to 13, planned but not submitted
 results/              figures
 docs/                 datasheet and model card
 ```
@@ -124,6 +126,10 @@ The per-round scripts regenerate one week each, for example:
 ```
 python notebooks/round8_module19.py
 ```
+
+Rounds 11, 12 and 13 were all due on the same day, so `notebooks/rounds11_to_13.py`
+plans all three at once. I ran out of time to submit them, so their queries are in
+`planned/` rather than `submissions/`.
 
 ## Declaration of AI use
 

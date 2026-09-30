@@ -17,7 +17,7 @@ Changed a concrete choice. They argue against the squared exponential kernel bec
 assumes the function is unrealistically smooth, and recommend Matern 5/2 with a separate
 length scale per input.
 
-I use exactly that. The per-input length scales have since flagged three inputs across
+I use exactly that. The per-input length scales have since flagged four inputs across
 three functions as carrying no information.
 
 ## Rasmussen & Williams (2006) - Gaussian Processes for Machine Learning
@@ -27,7 +27,7 @@ hyperparameters by marginal likelihood, which is what runs every round.
 
 ## Eriksson et al. (2019) - TuRBO (Scalable Global Optimization via Local Bayesian Optimization)
 
-Not used yet. Keeps the search inside a trust region that shrinks after failures and
+Used on Function 4 from round 9. Keeps the search inside a trust region that shrinks after failures and
 grows after successes, rather than trusting one global model everywhere.
 
 This is the fix for Function 4. Its leave-one-out error rose from 1.19 at 31 readings to
